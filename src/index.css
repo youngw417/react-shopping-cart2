@@ -134,6 +134,7 @@ footer {
 
 .button:hover {
   border: 0.1rem #808080 solid;
+  border-radius: 0.8rem;
 }
 .button.primary {
   background-color: #ffc000;
@@ -151,3 +152,64 @@ footer {
   flex: 1;
   text-align: center;
 }
+
+.cart {
+  padding: 1.2rem;
+  margin: 1rem;
+  display: flex;
+}
+
+.cart-header {
+  border-bottom: 0.1rem #c0c0c0 solid;
+}
+
+.cart-items {
+  padding: 0;
+  width: 100%;
+  list-style-type: none;
+}
+
+.cart-items img {
+  width: 5rem;
+}
+
+.cart-items li {
+  display: flex;
+}
+
+.cart-items li div {
+  padding: 0.5rem;
+}
+
+/* .cart-items li div:last-child {
+  flex: 1;
+} */
+
+/* .right {
+  text-align: right;
+} */
+.btn-cart {
+  font-size: 1rem;
+  padding: 0.7rem;
+  margin-left: 1rem;
+}
+
+.total {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-total {
+  border-top: 0.1rem #c0c0c0 solid;
+  padding-top: 1rem;
+}
+
+.total > div {
+  font-size: 2rem;
+}
+/* .total > div,
+.total > button {
+  flex: 1;
+  font-size: 2rem;
+} */
