@@ -16,6 +16,10 @@ class App extends React.Component {
     };
   }
 
+  createOrder = (order) => {
+    alert('Need to create order for ' + order.name);
+  };
+
   addToCart = (product) => {
     const cartItems = [...this.state.cartItems];
 
@@ -102,6 +106,7 @@ class App extends React.Component {
               <Cart
                 cartItems={this.state.cartItems}
                 removeFromCart={this.removeFromCart}
+                createOrder={this.createOrder}
               />
             </div>
           </div>
