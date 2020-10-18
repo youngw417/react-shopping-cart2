@@ -95,9 +95,12 @@ ul {
   flex: 0 1 29rem;
   height: 47rem;
   padding: 1rem;
-  /* margin: 1rem; */
+  margin-bottom: 1rem;
 }
 
+ul li:last-child {
+  margin-bottom: 2rem;
+}
 .product {
   display: flex;
   flex-direction: column;
