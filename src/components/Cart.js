@@ -44,9 +44,9 @@ class Cart extends Component {
 
   render() {
     const { cartItems, order } = this.props;
-    console.log('cartItems', cartItems);
+
     return (
-      <div>
+      <div className="make_sticky">
         {cartItems.length === 0 ? (
           <div className="cart cart-header"> Cart is empty</div>
         ) : (
