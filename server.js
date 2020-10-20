@@ -90,6 +90,15 @@ app.delete('/api/products/:id', async (req, res) => {
   res.send(deletedProduct);
 });
 
+app.get('/api/orders', async (req, res) => {
+  const orders = await Order.find({});
+  res.json(orders);
+});
+
+app.delete('/api/orders/:id', async (req, res) => {
+  const deleted = await Order.findByIdAndDelete(req.params.id);
+  res.send(deleted);
+});
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`server at port: ${port}`));
