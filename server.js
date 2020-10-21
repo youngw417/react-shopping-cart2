@@ -2,17 +2,23 @@ const express = require('express');
 // const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 const shortid = require('shortid');
+const { reset } = require('nodemon');
 
 const app = express();
 
 app.use(express.json());
+app.use('/', express.static(__dirname + '/build'));
+app.get('/', (req, res) => res.send(__dirname + '/build/index.html'));
 
 const mongoDb = async () => {
-  mongoose.connect('mongodb://localhost/react-shopping-cart-db', {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  });
+  mongoose.connect(
+    process.env.MONGODB_URL || 'mongodb://localhost/react-shopping-cart-db',
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+    }
+  );
 
   console.log(`Mongodb connected`);
 };
