@@ -2,7 +2,7 @@ import {
   FETCH_PRODUCTS,
   FILTER_PRODUCTS_BY_SIZE,
   ORDER_PRODUCTS_BY_PRICE,
-} from '../types';
+} from '../utils/types';
 
 export const productReducer = (state = {}, action) => {
   switch (action.type) {

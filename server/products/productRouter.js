@@ -17,10 +17,4 @@ router.delete('/:id', async (req, res) => {
   res.send(deletedProduct);
 });
 
-router.post('/', async (req, res) => {
-  const newProduct = new Product(req.body);
-  const savedProduct = await newProduct.save();
-  res.send(savedProduct);
-});
-
 module.exports = router;

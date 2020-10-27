@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../types';
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../utils/types';
 
 export const cartReducer = (
   state = {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import formatCurrency from '../util';
+import formatCurrency from '../utils/util';
 import Fade from 'react-reveal/Fade';
 import { connect } from 'react-redux';
 import { removeFromCart } from '../actions/cartActions';
