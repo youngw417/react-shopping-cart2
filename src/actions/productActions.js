@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   FETCH_PRODUCTS,
   FILTER_PRODUCTS_BY_SIZE,
@@ -5,8 +6,10 @@ import {
 } from '../utils/types';
 
 export const fetchProducts = () => async (dispatch) => {
-  const res = await fetch('/api/products');
-  const data = await res.json();
+  // const res = await fetch('/api/products');
+  // const data = await res.json();
+  const res = await axios('/api/products');
+  const data = res.data;
 
   dispatch({
     type: FETCH_PRODUCTS,

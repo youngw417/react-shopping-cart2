@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
+import { registerUser, resetError } from '../actions/userActions';
 
 // export default function Login() {
 //   const initialState = {
@@ -12,6 +15,7 @@ import React, { useState } from 'react';
 // }
 
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 const formSchema = Yup.object().shape({
   firstname: Yup.string().required('name is Required'),
@@ -41,6 +45,7 @@ function RegisterForm(props) {
     email: '',
     password: '',
   });
+  const history = useHistory();
 
   const validate = (e) => {
     // yup's reach method is for partial validation, only for the field being entered
@@ -54,7 +59,6 @@ function RegisterForm(props) {
         });
       })
       .catch((err) => {
-        console.log(err.errors);
         setErrors({
           ...errors,
           [e.target.name]: err.errors[0],
@@ -82,12 +86,15 @@ function RegisterForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (member.password === member.passwordConfirm) {
-      //   props.addMember({
-      //     id: Date.now(),
-      //     name: member.name,
-      //     email: member.email,
-      //     role: member.role,
-      //   });
+      props.registerUser({
+        fname: member.firstname,
+        lname: member.lastname,
+        email: member.email,
+        password: member.password,
+      });
+
+      // console.log('props.user1', props.user);
+
       setMember({
         firstname: '',
         lastname: '',
@@ -98,8 +105,20 @@ function RegisterForm(props) {
     }
   };
 
+  if (props.status) {
+    setTimeout(() => {
+      props.resetError();
+    }, 5000);
+  }
+  if (props.isLogged) {
+    history.push('/admin');
+  }
+
   return (
     <div className="input">
+      {props.status && (
+        <u2 className="errors">{props.message} Please login.</u2>
+      )}
       <form className="input-form" onSubmit={(e) => handleSubmit(e)}>
         <ul className="form-container">
           <li>
@@ -191,5 +210,13 @@ function RegisterForm(props) {
     </div>
   );
 }
-
-export default RegisterForm;
+const mapStateToProps = (state) => {
+  return {
+    status: state.user.error.status,
+    message: state.user.error.message,
+    isLogged: state.user.user.isLogged,
+  };
+};
+export default connect(mapStateToProps, { registerUser, resetError })(
+  RegisterForm
+);

@@ -2,19 +2,28 @@ const express = require('express');
 const router = express.Router();
 const { User } = require('./userDb');
 
-router.get('/', async (req, res) => {
-  const users = await User.find({});
-  res.send(users);
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await User.find({});
+    res.send(users);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.post('/', async (req, res) => {
-  const newUser = new User(req.body);
-  const savedUser = await newUser.save();
-  res.send(savedUser);
-});
-router.delete('/:id', async (req, res) => {
-  const deletedUser = await User.findByIdAndDelete(req.params.id);
-  res.send(deletedUser);
+router.delete('/:id', async (req, res, next) => {
+  //   User.findByIdAndDelete(req.params.id).then((deletedUser) => {
+  //     res.status(200).end(deletedUser);
+  //   });
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    next(new Error('No user is found.'));
+  }
+
+  user.remove();
+  res.status(200).json({
+    message: `User id: ${req.params.id} removed`,
+  });
 });
 
 module.exports = router;

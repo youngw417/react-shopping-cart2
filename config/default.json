@@ -1,0 +1,5 @@
+{
+    "PORT": 5001,
+    "MONGOBD_URL": "mongodb://localhost/react-shopping-cart-db",
+    "JWT_SECRET": "I have 2 daughter$"
+}

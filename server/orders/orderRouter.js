@@ -1,8 +1,9 @@
+const { getNodeText } = require('@testing-library/react');
 const express = require('express');
 const router = express.Router();
 const { Order } = require('./orderDb');
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   if (
     !req.body.name ||
     !req.body.email ||
@@ -17,17 +18,29 @@ router.post('/', async (req, res) => {
 
   const order = await Order(req.body).save();
 
-  res.send(order);
+  try {
+    res.send(order);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   const orders = await Order.find({});
-  res.json(orders);
+  try {
+    res.json(orders);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.delete('/:id', async (req, res) => {
-  const deleted = await Order.findByIdAndDelete(req.params.id);
-  res.send(deleted);
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deleted = await Order.findByIdAndDelete(req.params.id);
+    res.send(deleted);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
