@@ -9,6 +9,8 @@ import HomeScreen from './screens/HomeScreen';
 import AdminScreen from './screens/AdminScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
+import PrivateRoute from './utils/privateroute';
+import Logout from './components/logout';
 
 class App extends React.Component {
   render() {
@@ -21,6 +23,7 @@ class App extends React.Component {
               <div className="header-link-right">
                 <Link to="/login">Login</Link>
                 <Link to="/register">Register</Link>
+                <Link to="/logout">Logout</Link>
                 {/* <Link to="/admin">Admin</Link> */}
               </div>
             </header>
@@ -29,7 +32,8 @@ class App extends React.Component {
                 <Route path="/admin" component={AdminScreen} />
                 <Route path="/login" component={LoginScreen} />
                 <Route path="/register" component={RegisterScreen} />
-                <Route path="/" component={HomeScreen} />
+                <PrivateRoute path="/" component={HomeScreen} />
+                <PrivateRoute path="/logout" component={Logout} />
               </Switch>
             </main>
             <footer>All right reverved.</footer>
