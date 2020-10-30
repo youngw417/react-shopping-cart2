@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logIn, resetError } from '../actions/userActions';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 const formSchema = Yup.object().shape({
@@ -21,6 +24,8 @@ function LoginForm(props) {
     email: '',
     password: '',
   });
+
+  const history = useHistory();
 
   const validate = (e) => {
     // yup's reach method is for partial validation, only for the field being entered
@@ -61,22 +66,29 @@ function LoginForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (member.password === member.passwordConfirm) {
-      //   props.addMember({
-      //     id: Date.now(),
-      //     name: member.name,
-      //     email: member.email,
-      //     role: member.role,
-      //   });
-      setMember({
-        email: '',
-        password: '',
-      });
-    }
-  };
 
+    props.logIn({
+      email: member.email,
+      password: member.password,
+    });
+    setMember({
+      email: '',
+      password: '',
+    });
+  };
+  if (props.status) {
+    setTimeout(() => {
+      props.resetError();
+    }, 5000);
+  }
+  if (props.isLogged) {
+    history.push('/admin');
+  }
   return (
     <div className="input">
+      {props.status && (
+        <u2 className="errors">{props.message}: Please try again.</u2>
+      )}
       <form className="input-form" onSubmit={(e) => handleSubmit(e)}>
         <ul className="form-container">
           <li>
@@ -127,5 +139,11 @@ function LoginForm(props) {
     </div>
   );
 }
-
-export default LoginForm;
+const mapStateToProps = (state) => {
+  return {
+    status: state.user.error.status,
+    message: state.user.error.message,
+    isLogged: state.user.user.isLogged,
+  };
+};
+export default connect(mapStateToProps, { logIn, resetError })(LoginForm);

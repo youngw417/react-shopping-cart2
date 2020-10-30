@@ -45,4 +45,32 @@ router.post('/register', async (req, res, next) => {
     });
 });
 
+router.post('/login', async (req, res, next) => {
+  const { email, password } = req.body;
+
+  try {
+    const newUser = await User.findOne({ email });
+    console.log('newUser', newUser);
+    if (newUser && bc.compareSync(password, newUser.password)) {
+      const payload = {
+        _id: newUser._id,
+        fname: newUser.fname,
+        lname: newUser.lname,
+        email: newUser.email,
+      };
+      const token = jwt.sign(payload, config.get('JWT_SECRET'), {
+        expiresIn: '1d',
+      });
+      res.status(200).json({
+        ...payload,
+        password: 'xxxxxx',
+        token,
+      });
+    } else {
+      res.status(401).json({ message: 'Invalid Credentials' });
+    }
+  } catch (error) {
+    next(new Error(error));
+  }
+});
 module.exports = router;

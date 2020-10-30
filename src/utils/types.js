@@ -11,3 +11,4 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const SET_ERROR = 'SET_ERROR';
 export const RESET_ERROR = 'RESET_ERROR';
 export const LOGOUT = 'LOGOUT';
+export const LOGIN = 'LOGIN';
