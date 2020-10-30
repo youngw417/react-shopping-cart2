@@ -33,7 +33,8 @@ class App extends React.Component {
               <Route path="/admin" component={AdminScreen} />
               <Route path="/login" component={LoginScreen} />
               <Route path="/register" component={RegisterScreen} />
-              <PrivateRoute path="/" component={HomeScreen} />
+              {/* <PrivateRoute path="/" component={HomeScreen} /> */}
+              <Route path="/" component={HomeScreen} />
             </Switch>
           </main>
           <footer>All right reverved.</footer>

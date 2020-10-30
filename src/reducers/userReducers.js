@@ -3,6 +3,7 @@ import {
   SET_ERROR,
   RESET_ERROR,
   LOGOUT,
+  LOGIN,
 } from '../utils/types';
 
 const initialState = {
@@ -32,6 +33,14 @@ export const userReducer = (state = initialState, action) => {
         error: {
           status: true,
           message: action.payload,
+        },
+      };
+    case LOGIN:
+      return {
+        ...state,
+        user: {
+          ...action.payload,
+          isLogged: true,
         },
       };
     case LOGOUT:

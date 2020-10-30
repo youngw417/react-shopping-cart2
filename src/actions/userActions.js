@@ -3,6 +3,7 @@ import {
   SET_ERROR,
   RESET_ERROR,
   LOGOUT,
+  LOGIN,
 } from '../utils/types';
 import axiosWithAuth from '../utils/axioswithauth';
 
@@ -40,4 +41,23 @@ export const resetError = () => {
   return {
     type: RESET_ERROR,
   };
+};
+
+export const logIn = (user) => (dispatch) => {
+  return axiosWithAuth()
+    .post('/api/auth/login', user)
+    .then((res) => {
+      console.log('res.data', res.data);
+      dispatch({
+        type: LOGIN,
+        payload: res.data,
+      });
+      localStorage.setItem('token', res.data.token);
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERROR,
+        payload: err.message,
+      });
+    });
 };

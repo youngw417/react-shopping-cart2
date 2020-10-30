@@ -14,9 +14,11 @@ class Products extends Component {
       product: null,
     };
   }
+
   componentDidMount() {
     this.props.fetchProducts();
   }
+
   openModal = (product) => {
     this.setState({ product });
   };
@@ -110,6 +112,7 @@ const mapStateToProps = (state) => {
   return {
     products: state.products.filteredItems,
     cartItems: state.cart.cartItems,
+    isLogged: state.user.user.isLogged,
   };
 };
 
