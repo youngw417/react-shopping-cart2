@@ -7,6 +7,8 @@ import { clearCart } from '../actions/cartActions';
 const logOut = (props) => {
   const loggingout = (user, items) => {
     if (items) {
+      // if there is cartItems, save it in server database, and clear 
+      // cart and localstorage cartItems before logging out
       props.clearCart(user, items);
     }
 

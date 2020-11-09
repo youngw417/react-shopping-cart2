@@ -41,13 +41,13 @@ export const removeFromCart = (items, product) => {
   };
 };
 
-const saveToServer = async (userId, cartItems) => {
+const saveToServer = (userId, cartItems) => {
   const cartInfo = {
     userId,
     cartItems,
   };
 
-  return await axiosWithAuth()
+  return axiosWithAuth()
     .post('/api/carts', cartInfo)
     .then(() => {
       console.log('saving cart items in database.....');
