@@ -26,7 +26,7 @@ class App extends React.Component {
               )}
 
               {this.props.islogged ? (
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard">{this.props.fname}</Link>
               ) : null}
 
               {this.props.islogged ? <Logout /> : null}
@@ -51,6 +51,7 @@ class App extends React.Component {
 export default connect(
   (state) => ({
     islogged: state.user.user.isLogged,
+    fname: state.user.user.fname,
   }),
   {}
 )(App);
