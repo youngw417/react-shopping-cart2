@@ -360,28 +360,33 @@ th {
   margin-bottom: 30px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .input {
     width: 50%;
   }
+  .input-form {
+    padding-left: auto;
+  }
 }
-/* 
-.input-form {
-  width: 92%;
+
+/* @media (min-width: 600px) {
+  .input-form {
+    padding-left: 2.3rem;
+  }
 } */
-.input-form ul {
+
+.input-form .form-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  width: 100%;
+
+  margin: 0 auto;
+  width: 80%;
 }
 
 .input-form ul li {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
+  align-items: center;
 }
 .errors {
   color: red;

@@ -5,6 +5,7 @@ const productRouter = require('./server/products/productRouter');
 const orderRouter = require('./server/orders/orderRouter');
 const userRouter = require('./server/users/userRouter');
 const authRouter = require('./server/auth/authRouter');
+const cartRouter = require('./server/carts/cartRouter');
 // const errorHandler = require('./server/middleware/errors');
 const cors = require('cors');
 const config = require('config');
@@ -19,6 +20,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/users', userRouter);
+app.use('/api/carts', cartRouter);
 
 app.use((err, req, res, next) => {
   console.log('err1', err.message);

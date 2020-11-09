@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Products from '../components/Products';
+import ProductsCache from '../components/ProductsCache';
 import Filter from '../components/Filter';
 import Cart from '../components/Cart';
 
@@ -10,7 +10,7 @@ export default class HomeScreen extends Component {
         <div className="content">
           <div className="main">
             <Filter />
-            <Products />
+            <ProductsCache />
           </div>
           <div className="sidebar">
             <Cart />

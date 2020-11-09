@@ -4,6 +4,7 @@ import {
   RESET_ERROR,
   LOGOUT,
   LOGIN,
+  ADD_TO_CART,
 } from '../utils/types';
 import axiosWithAuth from '../utils/axioswithauth';
 
@@ -32,6 +33,7 @@ export const registerUser = (user) => (dispatch) => {
 };
 
 export const logout = () => {
+  localStorage.removeItem('cartItems');
   return {
     type: LOGOUT,
   };
@@ -43,16 +45,38 @@ export const resetError = () => {
   };
 };
 
+const fetch_cartItems = () => {
+  return axiosWithAuth()
+    .get('/api/carts')
+    .then((res) => {
+      const cartItems = res.data.cartItems;
+
+      return cartItems;
+    })
+    .catch((err) => console.log(err));
+};
 export const logIn = (user) => (dispatch) => {
   return axiosWithAuth()
     .post('/api/auth/login', user)
     .then((res) => {
-      console.log('res.data', res.data);
       dispatch({
         type: LOGIN,
         payload: res.data,
       });
       localStorage.setItem('token', res.data.token);
+      const itemsInCart = JSON.parse(localStorage.getItem('cartItems'));
+
+      if (!itemsInCart) {
+        fetch_cartItems().then((items) => {
+          dispatch({
+            type: ADD_TO_CART,
+            payload: {
+              cartItems: items,
+            },
+          });
+          localStorage.setItem('cartItems', JSON.stringify(items));
+        });
+      }
     })
     .catch((err) => {
       dispatch({

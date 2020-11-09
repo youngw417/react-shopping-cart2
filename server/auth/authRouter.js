@@ -12,7 +12,6 @@ const { User } = require('../users/userDb');
 router.post('/register', async (req, res, next) => {
   const user = req.body;
   const userDb = await User.find({ email: user.email });
-  console.log('userDb', userDb);
 
   if (userDb.length > 0) {
     res.status(200).json({
@@ -28,6 +27,7 @@ router.post('/register', async (req, res, next) => {
     .save()
     .then((registeredUser) => {
       const userInfo = {
+        _id: registeredUser._id,
         fname: registeredUser.fname,
         lname: registeredUser.lname,
         email: registeredUser.email,

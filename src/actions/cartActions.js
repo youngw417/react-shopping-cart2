@@ -1,4 +1,5 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from '../utils/types';
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../utils/types';
+import axiosWithAuth from '../utils/axioswithauth';
 
 export const addToCart = (items, product) => (dispatch) => {
   const cartItems = items.slice();
@@ -37,5 +38,29 @@ export const removeFromCart = (items, product) => {
     payload: {
       cartItems,
     },
+  };
+};
+
+const saveToServer = async (userId, cartItems) => {
+  const cartInfo = {
+    userId,
+    cartItems,
+  };
+
+  return await axiosWithAuth()
+    .post('/api/carts', cartInfo)
+    .then(() => {
+      console.log('saving cart items in database.....');
+    })
+    .catch((err) => {
+      console.log('error1', err);
+    });
+};
+
+export const clearCart = (userId, cartItems) => {
+  saveToServer(userId, cartItems);
+  localStorage.removeItem('cartItems');
+  return {
+    type: CLEAR_CART,
   };
 };
