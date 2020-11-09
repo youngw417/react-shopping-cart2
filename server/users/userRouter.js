@@ -4,7 +4,7 @@ const { User } = require('./userDb');
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.find({});
+    const users = await User.find({}).select('-password');
     res.send(users);
   } catch (error) {
     next(error);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logIn, resetError } from '../actions/userActions';
@@ -81,9 +81,14 @@ function LoginForm(props) {
       props.resetError();
     }, 5000);
   }
-  if (props.isLogged) {
-    history.push('/admin');
-  }
+  // console.log('props', props);
+
+  useEffect(() => {
+    if (props.isLogged) {
+      history.push('/dashboard');
+    }
+  }, [history, props.isLogged]);
+
   return (
     <div className="input">
       {props.status && (

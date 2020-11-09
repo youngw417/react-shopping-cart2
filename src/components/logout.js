@@ -2,20 +2,35 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../actions/userActions';
 import { Link } from 'react-router-dom';
+import { clearCart } from '../actions/cartActions';
 
 const logOut = (props) => {
-  const loggingout = () => {
+  const loggingout = (user, items) => {
+    if (items) {
+      props.clearCart(user, items);
+    }
+
     props.logout();
     localStorage.removeItem('token');
   };
 
   return (
     <div>
-      <Link to="/logout" onClick={() => loggingout()}>
+      <Link
+        to="/logout"
+        onClick={() => loggingout(props.userId, props.cartItems)}
+      >
         Logout
       </Link>{' '}
     </div>
   );
 };
 
-export default connect(null, { logout })(logOut);
+const mapStateToProps = (state) => {
+  return {
+    cartItems: state.cart.cartItems,
+    userId: state.user.user._id,
+  };
+};
+
+export default connect(mapStateToProps, { logout, clearCart })(logOut);
