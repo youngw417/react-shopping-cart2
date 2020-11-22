@@ -1,8 +1,16 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../utils/types';
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  CLEAR_CART,
+  CART_SAVE_SHIPPING_ADDRESS,
+} from '../utils/types';
 
 export const cartReducer = (
   state = {
     cartItems: JSON.parse(localStorage.getItem('cartItems') || '[]'),
+    shippingAddress: JSON.parse(
+      localStorage.getItem('shippingAddress') || '{}'
+    ),
   },
   action
 ) => {
@@ -15,6 +23,12 @@ export const cartReducer = (
       return {
         cartItems: action.payload.cartItems,
       };
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
+      };
+
     case CLEAR_CART:
       return {
         cartItems: [],

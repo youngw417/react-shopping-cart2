@@ -407,3 +407,30 @@ th {
 .asking-register p {
   margin-right: 1rem;
 }
+
+/* Checkout Steps */
+.checkout-steps {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  width: 90%;
+}
+.checkout-steps > div {
+  border-top: 0.3rem #c0c0c0 solid;
+  color: #c0c0c0;
+  flex: 1;
+  padding: 1rem;
+  font-weight: bold;
+}
+
+.checkout-steps > div.active {
+  border-top-color: #f08000;
+  color: #f08000;
+}
+
+.shipping-form {
+}
+.shipping-form > li {
+  width: 50%;
+  margin: 0 auto;
+}

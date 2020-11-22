@@ -18,14 +18,12 @@ export const registerUser = (user) => (dispatch) => {
           payload: res.data.message,
         });
       } else {
-        console.log(res.data);
         dispatch({
           type: REGISTER_SUCCESS,
           payload: res.data,
         });
       }
       localStorage.setItem('token', res.data.token);
-      console.log('token', res.data.toen);
     })
     .catch((err) => {
       console.log('error1', err);
@@ -34,6 +32,7 @@ export const registerUser = (user) => (dispatch) => {
 
 export const logout = () => {
   localStorage.removeItem('cartItems');
+
   return {
     type: LOGOUT,
   };
@@ -64,17 +63,19 @@ export const logIn = (user) => (dispatch) => {
         payload: res.data,
       });
       localStorage.setItem('token', res.data.token);
+      // localStorage.setItem('fname', res.data.fname);
       const itemsInCart = JSON.parse(localStorage.getItem('cartItems'));
 
       if (!itemsInCart) {
         fetch_cartItems().then((items) => {
-          dispatch({
-            type: ADD_TO_CART,
-            payload: {
-              cartItems: items,
-            },
-          });
-          localStorage.setItem('cartItems', JSON.stringify(items));
+          items &&
+            dispatch({
+              type: ADD_TO_CART,
+              payload: {
+                cartItems: items,
+              },
+            });
+          items && localStorage.setItem('cartItems', JSON.stringify(items));
         });
       }
     })

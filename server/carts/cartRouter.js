@@ -31,6 +31,7 @@ router.post('/', authenticate, async (req, res, next) => {
 router.get('/', authenticate, async (req, res, next) => {
   try {
     const cartItems = await Cart.find({ userId: req.user._id });
+    console.log('cartItems', cartItems);
     res.json(cartItems[0]);
   } catch (error) {
     next(error);
