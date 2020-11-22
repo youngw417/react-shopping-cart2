@@ -11,6 +11,7 @@ import UserDashboard from './screens/UserDashboard';
 import PrivateRoute from './utils/privateroute';
 import Logout from './components/logout';
 import { connect } from 'react-redux';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
 
 class App extends React.Component {
   render() {
@@ -38,6 +39,10 @@ class App extends React.Component {
               <Route path="/login" component={LoginScreen} />
               <Route path="/register" component={RegisterScreen} />
               <PrivateRoute path="/dashboard" component={UserDashboard} />
+              <PrivateRoute
+                path="/Shipping"
+                component={ShippingAddressScreen}
+              />
               <Route path="/" component={HomeScreen} />
             </Switch>
           </main>

@@ -12,3 +12,4 @@ export const SET_ERROR = 'SET_ERROR';
 export const RESET_ERROR = 'RESET_ERROR';
 export const LOGOUT = 'LOGOUT';
 export const LOGIN = 'LOGIN';
+export const CART_SAVE_SHIPPING_ADDRESS = 'CART_SAVE_SHIPPING_ADDRESS';

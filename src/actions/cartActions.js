@@ -1,4 +1,9 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../utils/types';
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  CLEAR_CART,
+  CART_SAVE_SHIPPING_ADDRESS,
+} from '../utils/types';
 import axiosWithAuth from '../utils/axioswithauth';
 
 export const addToCart = (items, product) => (dispatch) => {
@@ -63,4 +68,12 @@ export const clearCart = (userId, cartItems) => {
   return {
     type: CLEAR_CART,
   };
+};
+
+export const saveShippingAddress = (data) => (dispatch) => {
+  dispatch({
+    type: CART_SAVE_SHIPPING_ADDRESS,
+    payload: data,
+  });
+  localStorage.setItem('shippingAddress', JSON.stringify(data));
 };
